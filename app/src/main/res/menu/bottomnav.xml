@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/social"
+        android:title="@string/socialTab"
+        android:enabled="true"
+        android:icon="@drawable/people"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/recipes"
+        android:title="@string/recipesTab"
+        android:icon="@drawable/restaurant"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/homeTab"
+        android:icon="@drawable/home"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/lists"
+        android:title="@string/listsTab"
+        android:icon="@drawable/shopping_cart"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/inventory"
+        android:title="@string/inventoryTab"
+        android:icon="@drawable/storage"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        />
+
+</menu>

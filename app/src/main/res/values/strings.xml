@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Pantry Master</string>
+    <string name="itemNameHint">Item Name</string>
+    <string name="quantityHint">Quantity</string>
+    <string name="categoryHint">Category</string>
+    <string name="mulitUnit">Multi-united?</string>
+    <string name="addButton">Add Item</string>
+    <string name="deleteButton">Delete</string>
+    <string name="saveButton">Save</string>
+    <string name="unitName">Units</string>
+    <string name="unitsPer">Units Per Item</string>
+    <string name="currentUnits">Current Number of Units</string>
+    <string name="socialTab">Social</string>
+    <string name="recipesTab">Recipes</string>
+    <string name="listsTab">Lists</string>
+    <string name="inventoryTab">Inventory</string>
+    <string name="homeTab">Home</string>
+    <string name="addRecipe">Add Recipe</string>
+    <string name="recipeNameHint">Recipe Name</string>
+    <string name="recipeInstructions">Instructions:</string>
+    <string name="recipeIngredients">Ingredients:</string>
+    <string name="addRecipeButton">Add Recipe</string>
+
+</resources>
