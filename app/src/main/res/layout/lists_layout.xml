@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingStart="15dp"
+    android:paddingEnd="15dp"
+    >
+
+    <CheckBox
+        android:id="@+id/listCheck"
+        android:padding="15dp"
+        android:paddingRight="0dp"
+        android:paddingEnd="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:id="@+id/listItemName"
+        android:text="Jelly"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:padding="15dp"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/listCheck"
+        android:layout_toEndOf="@+id/listCheck"
+        android:layout_toLeftOf="@+id/listQuantity"
+        android:layout_alignParentTop="true"
+        />
+
+    <TextView
+        android:id="@+id/listQuantity"
+        android:text="3"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:padding="15dp"
+        android:paddingRight="45dp"
+        android:paddingEnd="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/listItemName"
+        android:layout_toLeftOf="@+id/drag"
+        android:layout_toStartOf="@+id/drag"
+        android:layout_alignParentTop="true"
+        />
+
+    <Button
+        android:id="@+id/drag"
+        android:padding="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"/>
+
+</RelativeLayout>

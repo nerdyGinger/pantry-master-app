@@ -21,4 +21,15 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/bottomnav" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/bottomnav"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
 </android.support.constraint.ConstraintLayout>

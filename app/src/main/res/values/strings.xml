@@ -20,5 +20,11 @@
     <string name="recipeInstructions">Instructions:</string>
     <string name="recipeIngredients">Ingredients:</string>
     <string name="addRecipeButton">Add Recipe</string>
+    <string name="ingredientsTag">Ingredients: </string>
+    <string name="ingredientsButton"> + Add Ingredient </string>
+    <string name="emptySpaceHint">\n\n\n</string>
+    <string name="directionsTag">Directions: </string>
+    <string name="directionsHint">\t(Tap to edit) \n\n\n</string>
+    <string name="recipePicDescription">Image of recipe, or tap to add</string>
 
 </resources>

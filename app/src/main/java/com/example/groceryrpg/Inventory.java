@@ -20,11 +20,11 @@ import java.util.Set;
 
 public class Inventory extends AppCompatActivity{
     private final static String prefKey = "juggleface";
-    List<String> items = new ArrayList<>();
-    List<String> units = new ArrayList<>();
-    String currentCat;
-    List<String> categories = new ArrayList<>();
-    List<MyItem> itemsList = new ArrayList<>();
+    private List<String> items = new ArrayList<>();
+    private List<String> units = new ArrayList<>();
+    private String currentCat;
+    private List<String> categories = new ArrayList<>();
+    private List<MyItem> itemsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
