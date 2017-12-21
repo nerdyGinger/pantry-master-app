@@ -12,6 +12,7 @@
     android:paddingRight="15dp"
     android:paddingStart="15dp"
     android:paddingEnd="15dp"
+    android:background="?android:attr/selectableItemBackground"
     >
 
     <TextView

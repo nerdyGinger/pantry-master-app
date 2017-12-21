@@ -98,6 +98,11 @@ public class Inventory extends AppCompatActivity{
             public void onClick(View view, int position) {
                 editInventory(position);
             }
+
+            @Override
+            public boolean onLongClick(View view, int position) {
+                return true;
+            }
         };
         InventoryAdapter mAdapter = new InventoryAdapter(listener);
         mAdapter.updateData(itemsList);

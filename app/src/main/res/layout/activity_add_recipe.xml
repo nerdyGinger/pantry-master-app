@@ -7,112 +7,131 @@
     android:scrollbars="vertical"
     tools:context="com.example.groceryrpg.AddRecipe">
 
-    <ImageButton
-        android:id="@+id/recipe_pic"
-        android:contentDescription="@string/recipePicDescription"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/newRecipeName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/newRecipeName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/ingredients"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:paddingTop="5dp"
-        android:text="@string/ingredientsTag"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipe_pic"
-        app:layout_constraintBottom_toTopOf="@+id/ingredientsList" />
-
-    <Button
-        android:id="@+id/addIngredient"
-        android:layout_width="180dp"
-        android:layout_height="35dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginEnd="25dp"
-        android:text="@string/ingredientsButton"
-        android:textAllCaps="false"
-        android:textSize="12sp"
-        android:textStyle="normal"
-        android:background="@color/colorAccent"
-        app:layout_constraintBaseline_toBaselineOf="@+id/ingredients"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ingredients"
-        app:layout_constraintTop_toBottomOf="@+id/newRecipeName" />
-
-    <EditText
-        android:id="@+id/newRecipeName"
+    <ScrollView
+        android:layout_height="match_parent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="75dp"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="25dp"
-        android:ems="10"
-        android:hint="@string/recipeNameHint"
-        android:inputType="textPersonName"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/scrollView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-    <TextView
-        android:id="@+id/ingredientsList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:hint="@string/emptySpaceHint"
-        android:background="@color/textBackgroundTint"
-        android:ems="10"
-        app:layout_constraintTop_toBottomOf="@+id/addIngredient"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="75dp">
 
-    <TextView
-        android:id="@+id/directionsTag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/directionsTag"
-        android:layout_margin="15dp"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredientsList"
-        app:layout_constraintRight_toRightOf="parent"/>
+            <ImageButton
+                android:id="@+id/recipe_pic"
+                android:contentDescription="@string/recipePicDescription"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/newRecipeName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/newRecipeName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/directions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/directionsHint"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/directionsTag"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:ems="10"
-        android:layout_margin="15dp"
-        android:background="@color/textBackgroundTint"
-        />
+            <TextView
+                android:id="@+id/ingredients"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:paddingTop="5dp"
+                android:text="@string/ingredientsTag"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_pic"
+                app:layout_constraintBottom_toTopOf="@+id/ingredientsList" />
+
+            <Button
+                android:id="@+id/addIngredient"
+                android:layout_width="180dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginEnd="25dp"
+                android:text="@string/ingredientsButton"
+                android:textAllCaps="false"
+                android:textSize="12sp"
+                android:textStyle="normal"
+                android:background="@color/colorAccent"
+                app:layout_constraintBaseline_toBaselineOf="@+id/ingredients"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ingredients"
+                app:layout_constraintTop_toBottomOf="@+id/newRecipeName" />
 
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:onClick="back"
-        android:text="@string/addRecipeButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+            <EditText
+                android:id="@+id/newRecipeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="75dp"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="25dp"
+                android:ems="10"
+                android:hint="@string/recipeNameHint"
+                android:inputType="textPersonName"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+             <TextView
+                 android:id="@+id/ingredientsList"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="15dp"
+                 android:hint="@string/emptySpaceHint"
+                 android:background="@color/textBackgroundTint"
+                 android:ems="10"
+                 app:layout_constraintTop_toBottomOf="@+id/addIngredient"
+                 app:layout_constraintRight_toRightOf="parent"
+                 app:layout_constraintLeft_toLeftOf="parent" />
+
+
+            <TextView
+                android:id="@+id/directionsTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/directionsTag"
+                android:layout_margin="15dp"
+                android:textColor="@color/cardview_dark_background"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsList"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+
+            <EditText
+                android:id="@+id/directions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/directionsHint"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/directionsTag"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:ems="10"
+                android:layout_margin="15dp"
+                android:background="@color/textBackgroundTint" />
+
+            <Button
+                android:id="@+id/addButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:onClick="back"
+                android:text="@string/addRecipeButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/directions" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

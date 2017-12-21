@@ -1,5 +1,6 @@
 package com.example.groceryrpg;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
@@ -9,4 +10,5 @@ import android.view.View;
 
 public interface RecyclerViewClickListener {
     void onClick (View view, int position);
+    boolean onLongClick (View view, int position);
 }

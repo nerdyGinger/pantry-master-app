@@ -65,6 +65,12 @@ public class Recipes extends AppCompatActivity {
             public void onClick(View view, int position) {
                 Toast.makeText(getApplicationContext(), "*Click*", Toast.LENGTH_SHORT).show();
             }
+
+            @Override
+            public boolean onLongClick(View view, int position) {
+                Toast.makeText(getApplicationContext(), "*Long Click*", Toast.LENGTH_SHORT).show();
+                return true;
+            }
         };
         RecipesAdapter adapter = new RecipesAdapter(listener);
         List<String> data = new ArrayList<>();
