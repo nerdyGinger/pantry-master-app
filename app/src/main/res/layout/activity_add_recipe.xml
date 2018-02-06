@@ -57,6 +57,7 @@
                 android:textSize="12sp"
                 android:textStyle="normal"
                 android:background="@color/colorAccent"
+                android:onClick="addIngredient"
                 app:layout_constraintBaseline_toBaselineOf="@+id/ingredients"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/ingredients"

@@ -1,6 +1,7 @@
 package com.example.groceryrpg;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,8 @@ import java.util.List;
 
 public class ListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private RecyclerViewClickListener mListener;
-    public List<MyItem> mDataSet = new ArrayList<MyItem>();
+    public List<MyItem> mDataSet = new ArrayList<>();
+    public List<MyItem> checkList = new ArrayList<>();
     private TextView itemName, quantity;
     private CheckBox check;
 
@@ -63,29 +65,25 @@ public class ListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final ListsViewHolder listsHolder = (ListsViewHolder) holder;
-        MyItem i = mDataSet.get(position);
-        itemName.setText(i.getItemName());
-        quantity.setText(i.getQuantity());
-
-        check.setOnCheckedChangeListener(null);
-        check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Integer pos = listsHolder.getAdapterPosition();
-                /**if(isChecked && pos<mDataSet.size()-1) {
-                    for(int k=pos; k<mDataSet.size()-1; k=k+2) {
-                        Collections.swap(mDataSet, k, k+1);
-                    }
-                    mDataSet.set(mDataSet.size()-1, mDataSet.get(pos));
-                    notifyItemMoved(pos, mDataSet.size()-1);
-                }*/
-            }
-        });
+        if(position<mDataSet.size()) {
+            MyItem i = mDataSet.get(position);
+            itemName.setText(i.getItemName());
+            quantity.setText(i.getQuantity());
+            check.setChecked(false);
+        } else {
+            MyItem j = checkList.get(position-mDataSet.size());
+            itemName.setText(j.getItemName());
+            quantity.setText(j.getQuantity());
+            quantity.setPaintFlags(quantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            check.setChecked(true);
+        }
     }
 
-    public void updateData(List<MyItem> dataSet) {
+    public void updateData(List<MyItem> dataSetOne, List<MyItem> dataSetTwo) {
         mDataSet.clear();
-        mDataSet.addAll(dataSet);
+        mDataSet.addAll(dataSetOne);
+        checkList.clear();
+        checkList.addAll(dataSetTwo);
         notifyDataSetChanged();
     }
 
@@ -102,7 +100,7 @@ public class ListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         notifyItemMoved(fromPos, toPos);
     }
 
-    public int getItemCount() { return mDataSet.size(); }
+    public int getItemCount() { return mDataSet.size()+checkList.size(); }
 
     @Override
     public int getItemViewType(int position) { return position; }

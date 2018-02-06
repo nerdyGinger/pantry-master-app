@@ -21,7 +21,6 @@ import java.util.Set;
 public class Inventory extends AppCompatActivity{
     private final static String prefKey = "juggleface";
     private List<String> items = new ArrayList<>();
-    private List<String> units = new ArrayList<>();
     private String currentCat;
     private List<String> categories = new ArrayList<>();
     private List<MyItem> itemsList = new ArrayList<>();
@@ -72,15 +71,14 @@ public class Inventory extends AppCompatActivity{
             Set<String> setItems = itemValues.keySet();
             String [] tempItems = (setItems.toArray(new String[setItems.size()]));
             for (String item : tempItems) {
-                if (item.endsWith("1") || item.endsWith("2") || item.endsWith("3")) {
-                } else {
+                if (!item.endsWith("1") && !item.endsWith("2") && !item.endsWith("3")) {
                     categories.add(currentCat);
                     items.add(item);
                     Integer value = tempPref.getInt(item, 0);
                     Integer unitsPer = tempPref.getInt(item + "2", 0);
                     Integer currUnits = tempPref.getInt(item + "3", 0);
-                    units.add(tempPref.getString(item + "1", ""));
-                    MyItem temp = new MyItem(item, value.toString(), currUnits, unitsPer);
+                    String unit = (tempPref.getString(item + "1", ""));
+                    MyItem temp = new MyItem(item, value.toString(), unit, currUnits, unitsPer);
                     itemsList.add(temp);
                     }
                 }
@@ -116,9 +114,9 @@ public class Inventory extends AppCompatActivity{
         String itemName = choosen.getItemName();
         String num = choosen.getQuantity();
         String cat = categories.get(position);
-        String unit = units.get(position);
+        String unit = choosen.getUnits();
         Integer unitsPer = choosen.getUnitsPer();
-        Integer current = choosen.getUnits();
+        Integer current = choosen.getCurrentUnits();
 
         intent.putExtra("name", itemName);
         intent.putExtra("number", num);

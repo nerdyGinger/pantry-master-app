@@ -13,8 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Recipes extends AppCompatActivity {
 
@@ -52,8 +59,7 @@ public class Recipes extends AppCompatActivity {
             }
         });
 
-        //get recipe info from SharedPreferences
-        //SharedPreferences recipesPref = getSharedPreferences("AllOfMyRecipes,Yo", MODE_PRIVATE);
+        //get recipes info from SharedPreferences
         RecyclerView recycler = (RecyclerView) findViewById(R.id.recipeRecycler);
         recycler.addItemDecoration(new DividerItemDecoration(
                 Recipes.this, LinearLayoutManager.VERTICAL));
@@ -73,11 +79,20 @@ public class Recipes extends AppCompatActivity {
             }
         };
         RecipesAdapter adapter = new RecipesAdapter(listener);
-        List<String> data = new ArrayList<>();
-        data.add("PB&J");
-        data.add("Lasagna");
-        data.add("Cuppa Joe");
-        adapter.updateData(data);
+
+        //get data from internal storage file
+        SharedPreferences recipesPref = getSharedPreferences("AllOfMyRecipes,Yo", MODE_PRIVATE);
+        Map<String,?> rawStuff = recipesPref.getAll();
+        Set<String> set = rawStuff.keySet();
+        List<String> recipeNames = new ArrayList<>();
+        if(set.size() == 0) {
+            recipeNames.add("No Recipes Added");
+        } else {
+            recipeNames.addAll(set);
+        }
+
+        //send data to adapter
+        adapter.updateData(recipeNames);
         recycler.setAdapter(adapter);
     }
 

@@ -10,6 +10,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
@@ -22,13 +23,13 @@ import java.util.Map;
 import java.util.Set;
 
 public class Lists extends AppCompatActivity {
-    private final static String prefKey = "juggleface";
-    private List<String> items = new ArrayList<>();
-    private List<String> units = new ArrayList<>();
-    private String currentCat;
-    private List<String> categories = new ArrayList<>();
     private List<MyItem> itemsList = new ArrayList<>();
+    private List<MyItem> checkList = new ArrayList<>();
+    private List<MyItem> toBeDropped = new ArrayList<>();
+    private List<MyItem> toBeRaised = new ArrayList<>();
+    private List<MyItem> currentList = new ArrayList<>();
     private ListsAdapter adapter;
+    private CheckBox check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,37 +67,22 @@ public class Lists extends AppCompatActivity {
             }
         });
 
-        //get list values from sharedPreferences
-        SharedPreferences preferences = getSharedPreferences(prefKey, MODE_PRIVATE);
-        Integer prefSize = preferences.getAll().size();
-        for (Integer i=1; i<=prefSize+1; i++) {
-            String cat = preferences.getString(i.toString(), "");
-            currentCat = cat;
-            SharedPreferences tempPref = getSharedPreferences(cat, MODE_PRIVATE);
-            Map<String, ?> itemValues = tempPref.getAll();
-            Set<String> setItems = itemValues.keySet();
-            String[] tempItems = (setItems.toArray(new String[setItems.size()]));
-            for (String item : tempItems) {
-                if (item.endsWith("1") || item.endsWith("2") || item.endsWith("3")) {
-                } else {
-                    categories.add(currentCat);
-                    items.add(item);
-                    Integer value = tempPref.getInt(item, 0);
-                    Integer unitsPer = tempPref.getInt(item + "2", 0);
-                    Integer currUnits = tempPref.getInt(item + "3", 0);
-                    units.add(tempPref.getString(item + "1", ""));
-                    MyItem temp = new MyItem(item, value.toString(), currUnits, unitsPer);
-                    itemsList.add(temp);
-                }
-            }
-
-        }
+        //get lists data
+        MyItem apples = new MyItem("Apples", "2", "", 0, 0);
+        MyItem oranges = new MyItem("Oranges", "3", "", 0,0);
+        MyItem bananas = new MyItem("Bananas", "1", "", 0, 0);
+        MyItem dates = new MyItem("Dates", "4", "", 0, 0);
+        itemsList.add(apples);
+        itemsList.add(oranges);
+        itemsList.add(bananas);
+        checkList.add(dates);
+        currentList.addAll(itemsList);
+        currentList.addAll(checkList);
 
         //set up recycler with lists data
         final RecyclerView listsList = (RecyclerView) findViewById(R.id.listsRecycler);
         listsList.addItemDecoration(new DividerItemDecoration(
                 Lists.this, LinearLayoutManager.VERTICAL));
-        listsList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         listsList.setLayoutManager(llm);
         RecyclerViewClickListener listener = new RecyclerViewClickListener() {
@@ -110,12 +96,29 @@ public class Lists extends AppCompatActivity {
                 }
             };
         adapter = new ListsAdapter(listener);
-        adapter.updateData(itemsList);
+        adapter.updateData(itemsList, checkList);
         listsList.setAdapter(adapter);
         ith.attachToRecyclerView(listsList);
     }
 
-    public void sendToBottom(View v) {
+    public void crossOut(View v) {
+        check = (CheckBox)v;
+        View parentRow = (View) v.getParent();
+        RecyclerView rv = (RecyclerView) parentRow.getParent();
+        int position = rv.getChildAdapterPosition(parentRow);
+        MyItem i = currentList.get(position);
+
+        if(check.isChecked()) {
+            if(toBeRaised.contains(i)) {
+                toBeRaised.remove(i);
+            }
+            toBeDropped.add(i);
+        } else {
+            if(toBeDropped.contains(i)) {
+                toBeDropped.remove(i);
+            }
+            toBeRaised.add(i);
+        }
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelper = new ItemTouchHelper.SimpleCallback

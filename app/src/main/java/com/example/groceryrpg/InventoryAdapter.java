@@ -87,7 +87,7 @@ public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 nmItemName.setText(k.getItemName());
                 nmQuantity.setText(k.getQuantity());
                 lifeBar.setMax(k.getUnitsPer());
-                lifeBar.setProgress(k.getUnits());
+                lifeBar.setProgress(k.getCurrentUnits());
                 break;
         }
     }
