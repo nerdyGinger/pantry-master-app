@@ -67,8 +67,7 @@ public class Inventory extends AppCompatActivity{
             String cat = preferences.getString(i.toString(), "");
             currentCat = cat;
             SharedPreferences tempPref = getSharedPreferences(cat, MODE_PRIVATE);
-            Map<String, ?> itemValues = tempPref.getAll();
-            Set<String> setItems = itemValues.keySet();
+            Set<String> setItems = tempPref.getAll().keySet();
             String [] tempItems = (setItems.toArray(new String[setItems.size()]));
             for (String item : tempItems) {
                 if (!item.endsWith("1") && !item.endsWith("2") && !item.endsWith("3")) {

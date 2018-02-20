@@ -10,6 +10,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,13 +39,13 @@ public class EditItem extends AppCompatActivity {
 
 
         //initialize all widget variables for activity
-        itemBox = (EditText) findViewById(R.id.itemName);
-        quantityBox = (EditText) findViewById(R.id.quantity);
-        categoryBox = (EditText) findViewById(R.id.category);
-        unitName = (EditText) findViewById(R.id.unitName);
-        unitNum = (EditText) findViewById(R.id.unitNumber);
-        currUnits = (EditText) findViewById(R.id.currUnit);
-        multiUnitCheck = (CheckBox) findViewById(R.id.checkMultiUnit);
+        itemBox = findViewById(R.id.itemName);
+        quantityBox = findViewById(R.id.quantity);
+        categoryBox = findViewById(R.id.category);
+        unitName = findViewById(R.id.unitName);
+        unitNum = findViewById(R.id.unitNumber);
+        currUnits = findViewById(R.id.currUnit);
+        multiUnitCheck = findViewById(R.id.checkMultiUnit);
         if(unit.equals("") && numUnitsPer ==0) {
             unitNum.setEnabled(false);
             unitName.setEnabled(false);
@@ -61,8 +63,8 @@ public class EditItem extends AppCompatActivity {
         quantityBox.setText(num);
         categoryBox.setText(cat);
 
-        final Button saveButton = (Button) findViewById(R.id.saveButton);
-        final Button deleteButton = (Button) findViewById(R.id.delete);
+        final Button saveButton = findViewById(R.id.saveButton);
+        final Button deleteButton = findViewById(R.id.delete);
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 saveItem(v);
@@ -108,11 +110,8 @@ public class EditItem extends AppCompatActivity {
         SharedPreferences catPref = getSharedPreferences(category, MODE_PRIVATE);
         SharedPreferences.Editor catEditor = catPref.edit();
         catEditor.remove(itemName).apply();
-        catEditor.remove(itemName+"1").apply();
-        catEditor.remove(itemName+"2").apply();
-        catEditor.remove(itemName+"3").apply();
-        if (catPref.getAll().size() == 0) {
-            SharedPreferences masterPref = getSharedPreferences(prefKey, MODE_PRIVATE);
+        SharedPreferences masterPref = getSharedPreferences(prefKey, MODE_PRIVATE);
+        if (catPref.getAll().size() == 0 && masterPref.contains(category)) {
             SharedPreferences.Editor masterEditor = masterPref.edit();
             masterEditor.remove(category).apply();
         }
@@ -124,12 +123,6 @@ public class EditItem extends AppCompatActivity {
         //get values from widgets
         String newItem = itemBox.getText().toString();
         String strQuantity = quantityBox.getText().toString();
-        Integer quantity;
-        if (strQuantity.matches("")) {
-            quantity = 0;
-        } else {
-            quantity = Integer.parseInt(strQuantity);
-        }
         String category = categoryBox.getText().toString();
         String unit = unitName.getText().toString().trim();
         String strPer = unitNum.getText().toString();
@@ -146,9 +139,10 @@ public class EditItem extends AppCompatActivity {
         } else {
             currentUnits = Integer.parseInt(strCurr);
         }
+        MyItem newMyItem = new MyItem(newItem, strQuantity, unit, currentUnits, unitsPer);
 
         //save item name to sharedPreferences
-        if (newItem.matches("") || quantity == 0 || category.matches("")) {
+        if (newItem.matches("") || strQuantity.matches("") || category.matches("")) {
             Toast.makeText(EditItem.this, "Please enter all values", Toast.LENGTH_SHORT).show();
         } else if (multiUnitCheck.isChecked() && (unit.matches("") || unitsPer == 0)) {
             Toast.makeText(EditItem.this, "Please enter all values", Toast.LENGTH_SHORT).show();
@@ -169,10 +163,9 @@ public class EditItem extends AppCompatActivity {
             SharedPreferences prevCatPref = getSharedPreferences(cat, MODE_PRIVATE);
             SharedPreferences.Editor catEditor = prevCatPref.edit();
             catEditor.remove(itemName).apply();
-            catEditor.putInt(newItem, quantity).apply();
-            catEditor.putString(newItem+"1", unit).apply();
-            catEditor.putInt(newItem+"2", unitsPer).apply();
-            catEditor.putInt(newItem+"3", currentUnits).apply();
+            Gson gson = new Gson();
+            String json = gson.toJson(newMyItem);
+            catEditor.putString(newItem, json).apply();
 
             //send back to inventory list
             back();

@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +27,10 @@ public class AddItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-        final Button saveButton = (Button) findViewById(R.id.saveButton);
-        unitName = (EditText) findViewById(R.id.unitName);
-        unitNum = (EditText) findViewById(R.id.unitNumber);
-        currUnits = (EditText) findViewById(R.id.currUnit);
+        final Button saveButton = findViewById(R.id.saveButton);
+        unitName = findViewById(R.id.unitName);
+        unitNum = findViewById(R.id.unitNumber);
+        currUnits = findViewById(R.id.currUnit);
         unitName.setEnabled(false);
         unitNum.setEnabled(false);
         currUnits.setEnabled(false);
@@ -68,19 +70,13 @@ public class AddItem extends AppCompatActivity {
 
     public void saveItem(View v) {
         //initialize all widget variables for activity
-        EditText itemBox = (EditText) findViewById(R.id.itemName);
-        EditText quantityBox = (EditText) findViewById(quantity);
-        EditText categoryBox = (EditText) findViewById(R.id.category);
+        EditText itemBox = findViewById(R.id.itemName);
+        EditText quantityBox = findViewById(quantity);
+        EditText categoryBox = findViewById(R.id.category);
 
         //get values from widgets
         String newItem = itemBox.getText().toString().trim();
         String strQuantity = quantityBox.getText().toString();
-        Integer quantity;
-        if (strQuantity.matches("")) {
-            quantity = 0;
-        } else {
-            quantity = Integer.parseInt(strQuantity);
-        }
         String category = categoryBox.getText().toString().trim();
         String unit = unitName.getText().toString().trim();
         String strPer = unitNum.getText().toString();
@@ -93,9 +89,10 @@ public class AddItem extends AppCompatActivity {
         if (strCurr.matches("")) {
             currentUnits = 0;
         } else { currentUnits = Integer.parseInt(strCurr); }
+        MyItem newMyItem = new MyItem(newItem, strQuantity, unit, currentUnits, unitsPer);
 
-        //save item name to sharedPreferences
-        if (newItem.matches("") || quantity == 0 || category.matches("")) {
+        //check if category exists in master sharedPreferences
+        if (newItem.matches("") || strQuantity.matches("") || category.matches("")) {
             Toast.makeText(AddItem.this, "Please enter all values", Toast.LENGTH_SHORT).show();
         } else {
             SharedPreferences masterPref = getSharedPreferences(prefKey, MODE_PRIVATE);
@@ -106,17 +103,19 @@ public class AddItem extends AppCompatActivity {
                 categories.add(cat);
             }
             if (!categories.contains(category)) {
+                //if category is not in master sharedPreferences, create new category
                 createNewCategory(masterPref, category);
             }
+
+            //save item to category sharedPreferences
             SharedPreferences catPref = getSharedPreferences(category, MODE_PRIVATE);
             if(catPref.contains(newItem)) {
-                Toast.makeText(AddItem.this, newItem+" already in "+category, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddItem.this, newItem+" already exists in "+category, Toast.LENGTH_SHORT).show();
             } else {
                 SharedPreferences.Editor catEditor = catPref.edit();
-                catEditor.putInt(newItem, quantity).apply();
-                catEditor.putString(newItem+"1", unit).apply();
-                catEditor.putInt(newItem+"2", unitsPer).apply();
-                catEditor.putInt(newItem+"3", currentUnits).apply();
+                Gson gson = new Gson();
+                String json = gson.toJson(newMyItem);
+                catEditor.putString(newItem, json).apply();
 
                 //send back to inventory list
                 back();
