@@ -101,7 +101,8 @@ public class EditItem extends AppCompatActivity {
     }
 
     private void back() {
-        Intent outIntent = new Intent(this, Inventory.class);
+        Intent outIntent = new Intent(this, Home.class);
+        outIntent.putExtra("page", "Inventory");
         startActivity(outIntent);
     }
 

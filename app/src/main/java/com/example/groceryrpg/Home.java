@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 public class Home extends AppCompatActivity implements
@@ -21,10 +22,23 @@ public class Home extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        loadFragment(new HomeFrag());
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomnav);
-        bottomNav.setSelectedItemId(R.id.home);
+
+        Intent inIntent = getIntent();
+        String page = inIntent.getStringExtra("page");
+        if (page != null) {
+            switch(page){
+                case "Inventory":
+                    loadFragment(new InventoryFrag());
+                    bottomNav.setSelectedItemId(R.id.inventory);
+
+            }
+        } else {
+            loadFragment(new HomeFrag());
+            bottomNav.setSelectedItemId(R.id.home);
+        }
+
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -50,12 +64,15 @@ public class Home extends AppCompatActivity implements
         });
     }
 
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    @Override
+    public void onFragmentInteraction(View view) {    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {    }

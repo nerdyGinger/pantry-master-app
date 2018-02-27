@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,7 +15,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -40,30 +43,6 @@ public class InventoryFrag extends Fragment {
 
     public InventoryFrag() {
         // Required empty public constructor
-    }
-
-    public void addToInventory(View view) {
-        Intent intent = new Intent(getContext(), AddItem.class);
-        startActivity(intent);
-    }
-
-    public void editInventory(int position) {
-        Intent intent = new Intent(this.getContext(), EditItem.class);
-        MyItem chosen = itemsList.get(position);
-        String name = chosen.getItemName();
-        String quantity = chosen.getQuantity();
-        String units = chosen.getUnits();
-        String cat = cats.get(position);
-        Integer unitsCurr = chosen.getCurrentUnits();
-        Integer unitsPer = chosen.getUnitsPer();
-
-        intent.putExtra("name", name);
-        intent.putExtra("number", quantity);
-        intent.putExtra("units", units);
-        intent.putExtra("category", cat);
-        intent.putExtra("currUnits", unitsCurr);
-        intent.putExtra("unitsPer", unitsPer);
-        startActivity(intent);
     }
 
     /**
@@ -93,24 +72,56 @@ public class InventoryFrag extends Fragment {
         }
     }
 
+    private void addItem() {
+        Intent intent = new Intent(this.getContext(), AddItem.class);
+        intent.putExtra("page", "Inventory");
+        startActivity(intent);
+    }
+
+    public void editInventory(int position) {
+        Intent intent = new Intent(this.getContext(), EditItem.class);
+        MyItem chosen = itemsList.get(position);
+        String name = chosen.getItemName();
+        String quantity = chosen.getQuantity();
+        String units = chosen.getUnits();
+        String cat = cats.get(position);
+        Integer unitsCurr = chosen.getCurrentUnits();
+        Integer unitsPer = chosen.getUnitsPer();
+
+        intent.putExtra("name", name);
+        intent.putExtra("number", quantity);
+        intent.putExtra("units", units);
+        intent.putExtra("category", cat);
+        intent.putExtra("currUnits", unitsCurr);
+        intent.putExtra("unitsPer", unitsPer);
+        startActivity(intent);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_inventory, container, false);
-        TabLayout tabs = view.findViewById(R.id.tabsLayout);
+        //TabLayout tabs = view.findViewById(R.id.tabsLayout);
+        Button addButton = view.findViewById(R.id.button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addItem();
+            }
+        });
 
         SharedPreferences masterPref = this.getActivity().getSharedPreferences("juggleface", Context.MODE_PRIVATE);
         Set<String> listCats = masterPref.getAll().keySet();
         for(String i : listCats) {
-            SharedPreferences tempPref = this.getActivity().getSharedPreferences(i, Context.MODE_PRIVATE);
+            String cat = masterPref.getString(i, "");
+            SharedPreferences tempPref = this.getActivity().getSharedPreferences(cat, Context.MODE_PRIVATE);
             Set<String> tempItemNames = tempPref.getAll().keySet();
             for(String j : tempItemNames) {
                 Gson gson = new Gson();
                 String json = tempPref.getString(j, "");
                 itemsList.add(gson.fromJson(json, MyItem.class));
-                cats.add(i);
+                cats.add(cat);
             }
         }
 
@@ -137,10 +148,9 @@ public class InventoryFrag extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onFragmentInteraction(View view) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onFragmentInteraction(view);
         }
     }
 
@@ -161,18 +171,8 @@ public class InventoryFrag extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(View view);
     }
 }

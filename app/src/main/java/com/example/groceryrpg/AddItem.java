@@ -17,7 +17,6 @@ import java.util.List;
 import static com.example.groceryrpg.R.id.quantity;
 
 public class AddItem extends AppCompatActivity {
-    private final static String prefKey = "juggleface";
     Intent inIntent = getIntent();
     EditText unitName, unitNum, currUnits;
     int called = 0;
@@ -64,7 +63,8 @@ public class AddItem extends AppCompatActivity {
     }
 
     private void back() {
-        Intent outIntent = new Intent(this, Inventory.class);
+        Intent outIntent = new Intent(this, Home.class);
+        outIntent.putExtra("page", "Inventory");
         startActivity(outIntent);
     }
 
@@ -95,7 +95,7 @@ public class AddItem extends AppCompatActivity {
         if (newItem.matches("") || strQuantity.matches("") || category.matches("")) {
             Toast.makeText(AddItem.this, "Please enter all values", Toast.LENGTH_SHORT).show();
         } else {
-            SharedPreferences masterPref = getSharedPreferences(prefKey, MODE_PRIVATE);
+            SharedPreferences masterPref = getSharedPreferences("juggleface", MODE_PRIVATE);
             Integer prefSize = masterPref.getAll().size();
             List<String> categories = new ArrayList<>();
             for (Integer i = 1; i <= prefSize + 1; i++) {
