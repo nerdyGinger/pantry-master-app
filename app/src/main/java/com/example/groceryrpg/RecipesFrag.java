@@ -1,22 +1,27 @@
 package com.example.groceryrpg;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RecipesFrag.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RecipesFrag#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class RecipesFrag extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,8 +68,56 @@ public class RecipesFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipes, container, false);
+        // Inflate the layout for this fragment, initialize add recipe button
+        View view = inflater.inflate(R.layout.fragment_recipes, container, false);
+        Button addButton = view.findViewById(R.id.button);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addRecipe();
+            }
+        });
+
+        // Get Recipes info from storage, currently SharedPreferences
+        SharedPreferences recipesPref = this.getActivity().getSharedPreferences("AllOfMyRecipes,Yo", Context.MODE_PRIVATE);
+        Set<String> keys = recipesPref.getAll().keySet();
+        List<MyRecipe> recipes = new ArrayList<>(); // TODO: update ListsAdapter to better represent recipe data
+        final List<String> recipeNames = new ArrayList<>(); // ...until then, we'll just use the names
+        for(String i : keys) {
+            Gson gson = new Gson();
+            String json = recipesPref.getString(i, "");
+            MyRecipe temp = gson.fromJson(json, MyRecipe.class);
+            recipes.add(temp); recipeNames.add(temp.getRecipeName());
+        }
+
+        // ...and some dummy values, just to test;
+        recipeNames.add("PB & J"); recipeNames.add("Beef Stew"); recipeNames.add("Cheesy Omelet");
+
+        // Set up RecyclerView
+        RecyclerView rv = view.findViewById(R.id.recipeRecycler);
+        rv.addItemDecoration(new DividerItemDecoration(this.getContext(), LinearLayoutManager.VERTICAL));
+        rv.setHasFixedSize(true);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        rv.setLayoutManager(llm);
+        RecyclerViewClickListener listener = new RecyclerViewClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getContext(), recipeNames.get(position), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public boolean onLongClick(View view, int position) { return false; }
+        };
+        RecipesAdapter adapter = new RecipesAdapter(listener);
+        adapter.updateData(recipeNames);
+        rv.setAdapter(adapter);
+
+        return view;
+    }
+
+    private void addRecipe() {
+        Intent intent = new Intent(this.getContext(), AddRecipe.class);
+        startActivity(intent);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,16 +144,6 @@ public class RecipesFrag extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

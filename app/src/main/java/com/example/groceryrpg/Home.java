@@ -32,7 +32,9 @@ public class Home extends AppCompatActivity implements
                 case "Inventory":
                     loadFragment(new InventoryFrag());
                     bottomNav.setSelectedItemId(R.id.inventory);
-
+                case "Recipes":
+                    loadFragment(new RecipesFrag());
+                    bottomNav.setSelectedItemId(R.id.recipes);
             }
         } else {
             loadFragment(new HomeFrag());

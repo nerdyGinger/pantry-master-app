@@ -74,7 +74,6 @@ public class InventoryFrag extends Fragment {
 
     private void addItem() {
         Intent intent = new Intent(this.getContext(), AddItem.class);
-        intent.putExtra("page", "Inventory");
         startActivity(intent);
     }
 

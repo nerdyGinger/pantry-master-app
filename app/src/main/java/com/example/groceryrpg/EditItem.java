@@ -28,7 +28,7 @@ public class EditItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
-        //get info from Inventory activity
+        //get info from InventoryFrag activity
         Intent inIntent = getIntent();
         itemName = inIntent.getStringExtra("name");
         num = inIntent.getStringExtra("number");

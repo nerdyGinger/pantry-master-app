@@ -1,10 +1,8 @@
 package com.example.groceryrpg;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,17 +10,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public class AddRecipe extends AppCompatActivity {
     private TextView ingredientsBox;
@@ -34,7 +24,7 @@ public class AddRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
 
-        ingredientsBox = (TextView) findViewById(R.id.ingredientsList);
+        ingredientsBox = findViewById(R.id.ingredientsList);
     }
 
     public void addIngredient(View v) {
@@ -54,9 +44,9 @@ public class AddRecipe extends AppCompatActivity {
 
     public void back(View v) {
         //initialize widgets
-        EditText nameBox = (EditText) findViewById(R.id.newRecipeName);
+        EditText nameBox = findViewById(R.id.newRecipeName);
         //ImageButton imageBox;
-        EditText directionsBox = (EditText) findViewById(R.id.directions);
+        EditText directionsBox = findViewById(R.id.directions);
 
         //get info
         String newName = nameBox.getText().toString();
@@ -74,11 +64,9 @@ public class AddRecipe extends AppCompatActivity {
             recipesEditor.putString(newName, json);
             recipesEditor.apply();
 
-            //File to delete: "MyRecipes,Yo!.txt"
-
-
             //Send back to Recipes activity
-            Intent intent = new Intent(AddRecipe.this, Recipes.class);
+            Intent intent = new Intent(AddRecipe.this, Home.class);
+            intent.putExtra("page", "Recipes");
             startActivity(intent);
         }
     }
