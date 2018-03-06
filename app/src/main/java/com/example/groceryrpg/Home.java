@@ -16,7 +16,8 @@ public class Home extends AppCompatActivity implements
                                                     InventoryFrag.OnFragmentInteractionListener,
                                                     HomeFrag.OnFragmentInteractionListener,
                                                     RecipesFrag.OnFragmentInteractionListener,
-                                                    ListsFrag.OnFragmentInteractionListener {
+                                                    ListsFrag.OnFragmentInteractionListener,
+                                                    SocialFrag.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
