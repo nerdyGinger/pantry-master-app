@@ -23,6 +23,11 @@ import java.util.Set;
 
 
 public class RecipesFrag extends Fragment {
+    // This is the fragment for the recipes! It'll look prettier later (it _all_ will),
+    // but this is where the recipes are displayed, and can be added to via the helpful
+    // little button at the top. Clicking on a recipe will show it in more detail at some
+    // time in the future, and editing and deleting will be enabled as well.
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,7 +86,7 @@ public class RecipesFrag extends Fragment {
         // Get Recipes info from storage, currently SharedPreferences
         SharedPreferences recipesPref = this.getActivity().getSharedPreferences("AllOfMyRecipes,Yo", Context.MODE_PRIVATE);
         Set<String> keys = recipesPref.getAll().keySet();
-        List<MyRecipe> recipes = new ArrayList<>(); // TODO: update ListsAdapter to better represent recipe data
+        List<MyRecipe> recipes = new ArrayList<>(); // TODO: update RecipesAdapter to better represent recipe data
         final List<String> recipeNames = new ArrayList<>(); // ...until then, we'll just use the names
         for(String i : keys) {
             Gson gson = new Gson();

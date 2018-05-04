@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Morgan on 12/15/2017.
+ * Created by nerdyGinger on 12/15/2017.
  * Adapter for recipes RecyclerView XD
  */
 

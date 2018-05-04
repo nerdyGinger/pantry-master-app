@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Morgan on 12/21/2017.
+ * Created by nerdyGinger on 12/21/2017.
  * Custom class to store recipes.
  */
 

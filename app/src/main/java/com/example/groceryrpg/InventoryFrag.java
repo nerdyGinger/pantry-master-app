@@ -28,6 +28,12 @@ import java.util.Set;
 
 
 public class InventoryFrag extends Fragment {
+    // This is the fragment for the inventory page, which lists the user's inventory. The
+    // user can add an item to their inventory by clicking on the 'Add Item' button at
+    // the top of the screen. (imagine that!) Cliking on an item in the swanky-looking
+    // RecyclerView will bring them to a page that will allow them to edit or delete that
+    // item, or just to look at it, if they want.
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";

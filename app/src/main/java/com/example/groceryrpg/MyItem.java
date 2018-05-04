@@ -3,7 +3,7 @@ package com.example.groceryrpg;
 import java.io.Serializable;
 
 /**
- * Created by Morgan on 11/25/2017.
+ * Created by nerdyGinger on 11/25/2017.
  * Item object
  */
 

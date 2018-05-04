@@ -44,7 +44,7 @@ public class Recipes extends AppCompatActivity {
                         startActivity(hIntent);
                         Recipes.this.overridePendingTransition(0,0);
                         return true;
-                    case "Lists":
+                    /** case "Lists":
                         Intent lIntent = new Intent(Recipes.this, Lists.class);
                         startActivity(lIntent);
                         Recipes.this.overridePendingTransition(0,0);
@@ -53,7 +53,7 @@ public class Recipes extends AppCompatActivity {
                         Intent intent = new Intent(Recipes.this, Inventory.class);
                         startActivity(intent);
                         Recipes.this.overridePendingTransition(0,0);
-                        return true;
+                        return true;**/
                 }
                 return true;
             }

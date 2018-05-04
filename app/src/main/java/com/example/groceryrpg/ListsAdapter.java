@@ -16,16 +16,16 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Morgan on 12/18/2017.
+ * Created by nerdyGinger on 12/18/2017.
  * Adapter for Lists activity
  */
 
 public class ListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private RecyclerViewClickListener mListener;
-    public List<MyItem> mDataSet = new ArrayList<>();
-    public List<MyItem> checkList = new ArrayList<>();
-    private TextView itemName, quantity;
-    private CheckBox check;
+    private List<MyItem> mDataSet = new ArrayList<>();
+    private List<MyItem> checkList = new ArrayList<>();
+    public TextView itemName, quantity;
+    public CheckBox check;
 
     public class ListsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private RecyclerViewClickListener myListener;
@@ -74,7 +74,7 @@ public class ListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             MyItem j = checkList.get(position-mDataSet.size());
             itemName.setText(j.getItemName());
             quantity.setText(j.getQuantity());
-            quantity.setPaintFlags(quantity.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            itemName.setPaintFlags(itemName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             check.setChecked(true);
         }
     }
@@ -85,19 +85,6 @@ public class ListsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         checkList.clear();
         checkList.addAll(dataSetTwo);
         notifyDataSetChanged();
-    }
-
-    public void onItemMove(int fromPos, int toPos) {
-        if (fromPos < toPos) {
-            for (int i = fromPos; i < toPos; i++) {
-                Collections.swap(mDataSet, i, i + 1);
-            }
-        } else {
-            for (int i = fromPos; i > toPos; i--) {
-                Collections.swap(mDataSet, i, i - 1);
-            }
-        }
-        notifyItemMoved(fromPos, toPos);
     }
 
     public int getItemCount() { return mDataSet.size()+checkList.size(); }

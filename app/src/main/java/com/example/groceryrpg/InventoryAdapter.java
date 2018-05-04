@@ -12,12 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Morgan on 11/24/2017.
+ * Created by nerdyGinger on 11/24/2017.
  * Adapter for inventory list RecyclerView (it works! TuT)
  */
 
 
 public class InventoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    // After much trial and error, this finally looks how it's supposed to look! At least,
+    // until the theme is changed and looks cooler overall. This displays the items in the
+    // inventory RecyclerView by name, quantity, and life remaining if applicable.
+
     private RecyclerViewClickListener mListener;
     private List<MyItem> mDataSet = new ArrayList<>();
     private TextView itemName, quantity, nmItemName, nmQuantity;

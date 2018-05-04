@@ -18,6 +18,8 @@ public class Home extends AppCompatActivity implements
                                                     RecipesFrag.OnFragmentInteractionListener,
                                                     ListsFrag.OnFragmentInteractionListener,
                                                     SocialFrag.OnFragmentInteractionListener {
+    // This activity is the hub of the app, hosting all of the other fragments and controlling
+    // navigation.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class Home extends AppCompatActivity implements
                         loadFragment(new HomeFrag());
                         return true;
                     case "Social":
-                        Toast.makeText(Home.this, "Social", Toast.LENGTH_SHORT).show();
+                        loadFragment(new SocialFrag());
                         return true;
                     case "Recipes":
                         loadFragment(new RecipesFrag());

@@ -1,6 +1,7 @@
 package com.example.groceryrpg;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,11 @@ import java.util.List;
 
 
 public class ListsFrag extends Fragment {
+    // This Lists Fragment doesn't look like much yet, but it will display shopping lists
+    // for items that are running low in the inventory, or whatever the user wants to add
+    // to them. Eventually, there should be scrolling tabs at the top for multiple lists,
+    // for all of us type-A's that like to have our lists sorted by store or aisle.
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,6 +36,7 @@ public class ListsFrag extends Fragment {
     private List<MyItem> currentList = new ArrayList<>();
     private List<MyItem> toBeRaised = new ArrayList<>();
     private List<MyItem> toBeDropped = new ArrayList<>();
+    private ListsAdapter adapter;
 
     public ListsFrag() {
         // Required empty public constructor
@@ -75,6 +82,8 @@ public class ListsFrag extends Fragment {
         items.add(new MyItem("Bread", "1", "Slices", 2, 20));
         items.add(new MyItem("Peanut Butter", "1", "Tbs", 4, 12));
         checkedItems.add(new MyItem("Milk", "1", "Cups", 1, 8));
+        currentList.addAll(items);
+        currentList.addAll(checkedItems);
 
         // Set up RecyclerView for list items
         final RecyclerView rv = view.findViewById(R.id.listsRecycler);
@@ -86,19 +95,21 @@ public class ListsFrag extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 MyItem i = currentList.get(position);
-                checked(i, check);
+                crossOut(i, check);
             }
             @Override
             public boolean onLongClick(View view, int position) { return false; }
         };
-        ListsAdapter adapter = new ListsAdapter(listener);
+        adapter = new ListsAdapter(listener);
         adapter.updateData(items, checkedItems);
         rv.setAdapter(adapter);
 
         return view;
     }
 
-    private void checked(MyItem i, CheckBox check) {
+    private void crossOut(MyItem i, CheckBox check) {
+        // Handles click events by checking box and adding item to a hold list to either be
+        // raised or lowered in the list when sort button is pushed.
         if(check.isChecked()) {
             if(toBeRaised.contains(i)) {
                 toBeRaised.remove(i);
@@ -111,13 +122,6 @@ public class ListsFrag extends Fragment {
             }
             toBeRaised.add(i);
             check.setChecked(true);
-        }
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
         }
     }
 

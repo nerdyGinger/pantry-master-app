@@ -1,0 +1,44 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.groceryrpg.IngredientDialog">
+
+    <AutoCompleteTextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoIngredient"
+        android:layout_below="@+id/ingredientText"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ingredientText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp"
+        android:text="@string/recipeIngredients"/>
+
+    <EditText
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/ingredientNum"
+        android:inputType="number"
+        android:layout_toRightOf="@+id/autoIngredient"
+        android:layout_toEndOf="@+id/autoIngredient"
+        android:layout_below="@+id/ingredientText"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ingredientUnit"
+        android:layout_toRightOf="@+id/ingredientNum"
+        android:layout_toEndOf="@+id/ingredientNum"
+        android:layout_below="@+id/ingredientText"
+        android:layout_margin="10dp"
+        />
+
+</RelativeLayout>
