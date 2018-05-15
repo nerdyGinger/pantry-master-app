@@ -10,8 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddItem" />
-        <activity android:name=".EditItem" />
+        <activity
+            android:name=".AddItem"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".EditItem"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".Home">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +24,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Recipes" />
-        <activity android:name=".AddRecipe" />
+        <activity
+            android:name=".AddRecipe"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".EditRecipe"></activity>
     </application>
 
 </manifest>

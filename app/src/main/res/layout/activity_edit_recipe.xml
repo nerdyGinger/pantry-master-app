@@ -5,34 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
-    tools:context="com.example.groceryrpg.AddRecipe">
+    tools:context="com.example.groceryrpg.EditRecipe">
 
     <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="wrap_content"
         android:id="@+id/scrollView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_width="match_parent"
             android:paddingBottom="75dp">
 
             <ImageButton
-                android:id="@+id/recipe_pic"
+                android:id="@+id/edit_Recipe_pic"
                 android:contentDescription="@string/recipePicDescription"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="10dp"
-                app:layout_constraintEnd_toStartOf="@+id/newRecipeName"
+                app:layout_constraintEnd_toStartOf="@+id/edit_NewRecipeName"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/newRecipeName"
+                app:layout_constraintRight_toLeftOf="@+id/edit_NewRecipeName"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/ingredients"
+                android:id="@+id/edit_Ingredients"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
@@ -43,11 +43,11 @@
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recipe_pic"
-                app:layout_constraintBottom_toTopOf="@+id/ingredientsList" />
+                app:layout_constraintTop_toBottomOf="@+id/edit_Recipe_pic"
+                app:layout_constraintBottom_toTopOf="@+id/edit_IngredientsList" />
 
             <Button
-                android:id="@+id/addIngredient"
+                android:id="@+id/edit_AddIngredient"
                 android:layout_width="180dp"
                 android:layout_height="35dp"
                 android:layout_marginRight="25dp"
@@ -57,15 +57,14 @@
                 android:textSize="12sp"
                 android:textStyle="normal"
                 android:background="@color/colorAccent"
-                android:onClick="addIngredient"
-                app:layout_constraintBaseline_toBaselineOf="@+id/ingredients"
+                android:onClick="showDialog"
+                app:layout_constraintBaseline_toBaselineOf="@+id/edit_Ingredients"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/ingredients"
-                app:layout_constraintTop_toBottomOf="@+id/newRecipeName" />
-
+                app:layout_constraintStart_toEndOf="@+id/edit_Ingredients"
+                app:layout_constraintTop_toBottomOf="@+id/edit_NewRecipeName" />
 
             <EditText
-                android:id="@+id/newRecipeName"
+                android:id="@+id/edit_NewRecipeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="75dp"
@@ -78,22 +77,20 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-             <TextView
-                 android:id="@+id/ingredientsList"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_margin="15dp"
-                 android:hint="@string/emptySpaceHint"
-                 android:background="@color/textBackgroundTint"
-                 android:ems="10"
-                 app:layout_constraintTop_toBottomOf="@+id/addIngredient"
-                 app:layout_constraintRight_toRightOf="parent"
-                 app:layout_constraintLeft_toLeftOf="parent" />
-
+            <TextView
+                android:id="@+id/edit_IngredientsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:hint="@string/emptySpaceHint"
+                android:background="@color/textBackgroundTint"
+                android:ems="10"
+                app:layout_constraintTop_toBottomOf="@+id/edit_AddIngredient"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
 
             <TextView
-                android:id="@+id/directionsTag"
+                android:id="@+id/edit_DirectionsTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/directionsTag"
@@ -102,36 +99,33 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredientsList"
+                app:layout_constraintTop_toBottomOf="@+id/edit_IngredientsList"
                 app:layout_constraintRight_toRightOf="parent"/>
 
-
             <EditText
-                android:id="@+id/directions"
+                android:id="@+id/edit_Directions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="3"
                 android:gravity="top|start"
                 android:hint="@string/directionsHint"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/directionsTag"
+                app:layout_constraintTop_toBottomOf="@id/edit_DirectionsTag"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:ems="10"
                 android:layout_margin="15dp"
                 android:background="@color/textBackgroundTint" />
 
             <Button
-                android:id="@+id/addButton"
+                android:id="@+id/edit_AddButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:onClick="back"
                 android:text="@string/addRecipeButton"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/directions" />
-
+                app:layout_constraintTop_toBottomOf="@+id/edit_Directions" />
 
         </android.support.constraint.ConstraintLayout>
 

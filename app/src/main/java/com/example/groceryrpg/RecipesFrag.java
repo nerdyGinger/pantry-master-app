@@ -43,14 +43,6 @@ public class RecipesFrag extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RecipesFrag.
-     */
     // TODO: Rename and change types and number of parameters
     public static RecipesFrag newInstance(String param1, String param2) {
         RecipesFrag fragment = new RecipesFrag();
@@ -86,7 +78,7 @@ public class RecipesFrag extends Fragment {
         // Get Recipes info from storage, currently SharedPreferences
         SharedPreferences recipesPref = this.getActivity().getSharedPreferences("AllOfMyRecipes,Yo", Context.MODE_PRIVATE);
         Set<String> keys = recipesPref.getAll().keySet();
-        List<MyRecipe> recipes = new ArrayList<>(); // TODO: update RecipesAdapter to better represent recipe data
+        final List<MyRecipe> recipes = new ArrayList<>(); // TODO: update RecipesAdapter to better represent recipe data
         final List<String> recipeNames = new ArrayList<>(); // ...until then, we'll just use the names
         for(String i : keys) {
             Gson gson = new Gson();
@@ -108,10 +100,17 @@ public class RecipesFrag extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Toast.makeText(getContext(), recipeNames.get(position), Toast.LENGTH_SHORT).show();
+                MyRecipe recipe = recipes.get(position);
+                Intent intent = new Intent(getContext(), EditRecipe.class);
+                intent.putExtra("recipeName", recipe.getRecipeName());
+                startActivity(intent);
             }
 
             @Override
-            public boolean onLongClick(View view, int position) { return false; }
+            public boolean onLongClick(View view, int position) {
+                Toast.makeText(getContext(), recipeNames.get(position), Toast.LENGTH_SHORT).show();
+                return true;
+            }
         };
         RecipesAdapter adapter = new RecipesAdapter(listener);
         adapter.updateData(recipeNames);
@@ -123,13 +122,6 @@ public class RecipesFrag extends Fragment {
     private void addRecipe() {
         Intent intent = new Intent(this.getContext(), AddRecipe.class);
         startActivity(intent);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -150,7 +142,6 @@ public class RecipesFrag extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

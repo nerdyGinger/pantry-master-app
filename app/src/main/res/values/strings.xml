@@ -27,8 +27,7 @@
     <string name="directionsHint">\t(Tap to edit) \n\n\n</string>
     <string name="recipePicDescription">Image of recipe, or tap to add</string>
     <string name="construction">\n\n\nThis page is currently under construction. Feel free to send the developer ideas of what you would like to see here!</string>
+    <string name="cancel">Cancel</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

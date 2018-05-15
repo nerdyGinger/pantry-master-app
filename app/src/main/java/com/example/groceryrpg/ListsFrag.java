@@ -37,6 +37,7 @@ public class ListsFrag extends Fragment {
     private List<MyItem> toBeRaised = new ArrayList<>();
     private List<MyItem> toBeDropped = new ArrayList<>();
     private ListsAdapter adapter;
+    private CheckBox check;
 
     public ListsFrag() {
         // Required empty public constructor
@@ -74,7 +75,7 @@ public class ListsFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_lists, container, false);
-        final CheckBox check = view.findViewById(R.id.listCheck);
+        check = view.findViewById(R.id.listCheck);
 
         // Pull list info from storage ...
         List<MyItem> items = new ArrayList<>();
@@ -95,7 +96,8 @@ public class ListsFrag extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 MyItem i = currentList.get(position);
-                crossOut(i, check);
+                //crossOut(i);
+                // ^oops, just realized that has a few fundamental problems... I'll come back to this later
             }
             @Override
             public boolean onLongClick(View view, int position) { return false; }
@@ -107,7 +109,7 @@ public class ListsFrag extends Fragment {
         return view;
     }
 
-    private void crossOut(MyItem i, CheckBox check) {
+    private void crossOut(MyItem i) {
         // Handles click events by checking box and adding item to a hold list to either be
         // raised or lowered in the list when sort button is pushed.
         if(check.isChecked()) {

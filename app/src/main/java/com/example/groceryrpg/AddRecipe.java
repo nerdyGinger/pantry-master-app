@@ -16,10 +16,11 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddRecipe extends AppCompatActivity {
+public class AddRecipe extends AppCompatActivity implements IngredientDialog.DialogListener {
     private TextView ingredientsBox;
     private List<MyItem> ingredients = new ArrayList<>();
-    private Integer num = 2;
+    private List<String> quantities = new ArrayList<>();
+    IngredientDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,19 +30,33 @@ public class AddRecipe extends AppCompatActivity {
         ingredientsBox = findViewById(R.id.ingredientsList);
     }
 
-    public void addIngredient(View v) {
-        //------> popup fragment here later
+    public void onDialogNegativeClick() {
+        // action when cancel button is clicked:
+        dialog.dismiss();
+    }
 
-        //Add ingredient to global list
-        MyItem peanutButter = new MyItem("Peanut Butter", "1", "Tbsp", 12, 18);
-        ingredients.add(peanutButter);
+    public void onDialogPositiveClick(MyItem item, String quantity) {
+        // action when add button is clicked:
+        //  - add ingredient and quantity to global lists
+        ingredients.add(item);
+        quantities.add(quantity);
 
-        //set ingredients text
+        //  - set ingredients text from global list
         String text = "";
-        for(MyItem i : ingredients) {
-            text = text.concat(i.getItemName()+"\t-\t\t\t\t"+num.toString()+"\t"+i.getUnits()+"\n");
+        for(int i=0; i<ingredients.size(); i++) {
+            MyItem temp = ingredients.get(i);
+            text = text.concat(temp.getItemName()+"\t -\t\t\t\t"+quantities.get(i)+"\t"+temp.getUnits()+"\n");
         }
         ingredientsBox.setText(text);
+
+        //  - dismiss dialog
+        dialog.dismiss();
+    }
+
+    public void addIngredient(View v) {
+        //call up ingredient dialog
+        dialog = new IngredientDialog();
+        dialog.show(getSupportFragmentManager(),"AddIngredient");
     }
 
 
@@ -67,10 +82,10 @@ public class AddRecipe extends AppCompatActivity {
             recipesEditor.putString(newName, json);
             recipesEditor.apply();
 
-            //Send back to Recipes activity
-            Intent intent = new Intent(AddRecipe.this, Home.class);
-            intent.putExtra("page", "Recipes");
-            startActivity(intent);
         }
+        //Send back to Recipes activity
+        Intent intent = new Intent(AddRecipe.this, Home.class);
+        intent.putExtra("page", "Recipes");
+        startActivity(intent);
     }
 }

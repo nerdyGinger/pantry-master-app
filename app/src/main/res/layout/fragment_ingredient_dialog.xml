@@ -39,6 +39,25 @@
         android:layout_toEndOf="@+id/ingredientNum"
         android:layout_below="@+id/ingredientText"
         android:layout_margin="10dp"
+        android:hint="@string/unitName"
         />
+
+    <Button
+        android:id="@+id/cancelIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_below="@id/autoIngredient"
+        />
+
+
+    <Button
+        android:id="@+id/saveIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/ingredientNum"
+        android:layout_alignRight="@+id/ingredientNum"
+        android:layout_below="@+id/autoIngredient"
+        android:text="@string/saveButton" />
 
 </RelativeLayout>
