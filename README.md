@@ -1,5 +1,5 @@
 # pantry-master-app -- DEPRECATED
-***This app has been restarted and is now in a better place... updates coming!***
+***This app has been restarted and is now in the FoodManagementApp repository
 
 Grocery list and inventory mangement app
 
